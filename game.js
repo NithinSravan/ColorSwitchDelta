@@ -28,6 +28,7 @@ let endsongs = ["dilwale.mp3", "eeee.mp3", "Astronomia.mp3"];
 window.onresize = function () {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    clearInterval(blast);
     clearInterval(loop);//to stop setting multiple setIntervals on resize
     setup();
 }
@@ -239,10 +240,14 @@ function setup() {
     s = 0;
     max = -1;
     gameOver = 0;
-    if (typeof (resume) != 'undefined' && resume != null) {
+    if (typeof (restart) != 'undefined' && restart != null) {
+        song.pause();
+        bestScore.style.display = "none";
         overlay.style.display = "none";
-        resume.remove();
         restart.remove();
+    }
+    if (typeof (resume) != 'undefined' && resume != null) {
+        resume.remove();
     }
     curr = (canvas.height / 2 + canvas.height * 0.3);
     count = -1;
