@@ -25,13 +25,17 @@ let parts;
 let particles;
 let endsongs = ["dilwale.mp3", "eeee.mp3", "Astronomia.mp3"];
 
-window.onload = window.onresize = function () {
+window.onresize = function () {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     clearInterval(loop);//to stop setting multiple setIntervals on resize
     setup();
 }
-
+window.onload = function () {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    setup();
+}
 function rand(min, max) {
     return (Math.random() * (max - min + 1) + min);
 };
@@ -235,6 +239,11 @@ function setup() {
     s = 0;
     max = -1;
     gameOver = 0;
+    if (typeof (resume) != 'undefined' && resume != null) {
+        overlay.style.display = "none";
+        resume.remove();
+        restart.remove();
+    }
     curr = (canvas.height / 2 + canvas.height * 0.3);
     count = -1;
     click = 0;
@@ -269,6 +278,7 @@ function resumeGame() {
     resume.parentNode.removeChild(resume);
     restart.parentNode.removeChild(restart);
     pause.addEventListener('click', pauseGame);
+    clearInterval(loop);
     play();
 }
 function restartGame() {
@@ -282,6 +292,7 @@ function restartGame() {
     restart.parentNode.removeChild(restart);
     ctx.clearRect(0, 0, innerWidth, innerHeight);
     clearInterval(blast);
+    clearInterval(loop);
     setup();
 }
 //displays the score and stores it in local storage
@@ -357,7 +368,7 @@ function gameUpdate() {
             s = i + 1;
             max = s;
             createObs((canvas.width / 2), obs[i].y - (3 * canvas.height / 5), canvas.height * 0.15);
-            obs[i+1].angVel += (Math.PI) / 1000;
+            obs[i + 1].angVel += (Math.PI) / 1000;
         }
     }
 }
