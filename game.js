@@ -71,30 +71,7 @@ function explode() {
     restartButton();
 
 }
-function endgame(start, end, portion, dir) {
-    if (portion === 0 && dir === 0 || portion === 1 && dir === 1) {
-        for (let j = 0; j < parts.length; j++) {
 
-            if (parts[j].color !== ball.color) {
-                if ((Math.abs(parts[j].end % (Math.PI * 2)) > Math.abs(start) && Math.abs(parts[j].end % (Math.PI * 2)) < Math.abs(end))) {
-
-                    explode();
-                }
-            }
-        }
-    }
-    else if (portion === 0 && dir === 1 || portion === 1 && dir === 0) {
-        for (let j = 0; j < parts.length; j++) {
-
-            if (parts[j].color !== ball.color) {
-                if ((Math.abs(parts[j].start % (Math.PI * 2)) > Math.abs(start) && Math.abs(parts[j].start % (Math.PI * 2)) < Math.abs(end))) {
-
-                    explode();
-                }
-            }
-        }
-    }
-};
 class Ball {
     constructor(x, y, radius, color) {
         this.x = x;
@@ -162,6 +139,7 @@ class Obstacle {
         this.angVel = (Math.PI) / 150;
         this.dir = Math.floor(rand(0, 1));
         this.truth;
+        this.parts;
         let k;
         if (this.dir === 0) {
             k = 1;
@@ -176,13 +154,13 @@ class Obstacle {
 
     draw() {
         var df = 0;
-        parts = new Array();
+        this.parts = new Array();
 
         for (let i = 0; i < this.segments; i++) {
 
             ctx.beginPath();
             ctx.strokeStyle = color[i];
-            parts.push(new Part(this.startAngle + df, this.endAngle + df, color[i]));
+            this.parts.push(new Part(this.startAngle + df, this.endAngle + df, color[i]));
             ctx.arc(this.x, this.y, this.radius, df + this.startAngle, df + this.endAngle, this.truth);
             ctx.lineWidth = canvas.height / 40;
             ctx.stroke();
@@ -218,17 +196,41 @@ class Obstacle {
         //bottom half
         if (dist <= (ball.radius + this.radius + canvas.height / 80) && dist >= (this.radius - ball.radius - canvas.height / 80)) {
             if (this.dir === 0)
-                endgame((Math.PI / 2), ((Math.PI / 2) + (2 * Math.PI / this.segments)), 0, 0); //clockwise
+                this.endgame((Math.PI / 2), ((Math.PI / 2) + (2 * Math.PI / this.segments)), 0, 0); //clockwise
             else
-                endgame(((2 * Math.PI / this.segments) - (3 * Math.PI / 2)), (-3 * Math.PI / 2), 1, 0); //anti-clockwise
+                this.endgame(((2 * Math.PI / this.segments) - (3 * Math.PI / 2)), (-3 * Math.PI / 2), 1, 0); //anti-clockwise
         }
         dist = (this.y - ball.y);
         //top half
         if (dist <= (ball.radius + this.radius + canvas.height / 80) && dist >= (this.radius - ball.radius - canvas.height / 80)) {
             if (this.dir === 0)
-                endgame(((3 * Math.PI / 2) - (2 * Math.PI / this.segments)), (3 * Math.PI / 2), 0, 1); //clockwise
+                this.endgame(((3 * Math.PI / 2) - (2 * Math.PI / this.segments)), (3 * Math.PI / 2), 0, 1); //clockwise
             else
-                endgame((-Math.PI / 2), ((-Math.PI / 2) - (2 * Math.PI / this.segments)), 1, 1); //anti-clockwise
+                this.endgame((-Math.PI / 2), ((-Math.PI / 2) - (2 * Math.PI / this.segments)), 1, 1); //anti-clockwise
+        }
+    };
+    endgame(start, end, portion, dir) {
+        if (portion === 0 && dir === 0 || portion === 1 && dir === 1) {
+            for (let j = 0; j < this.parts.length; j++) {
+    
+                if (this.parts[j].color !== ball.color) {
+                    if ((Math.abs(this.parts[j].end % (Math.PI * 2)) > Math.abs(start) && Math.abs(this.parts[j].end % (Math.PI * 2)) < Math.abs(end))) {
+    
+                        explode();
+                    }
+                }
+            }
+        }
+        else if (portion === 0 && dir === 1 || portion === 1 && dir === 0) {
+            for (let j = 0; j < this.parts.length; j++) {
+    
+                if (this.parts[j].color !== ball.color) {
+                    if ((Math.abs(this.parts[j].start % (Math.PI * 2)) > Math.abs(start) && Math.abs(this.parts[j].start % (Math.PI * 2)) < Math.abs(end))) {
+    
+                        explode();
+                    }
+                }
+            }
         }
     };
 }
