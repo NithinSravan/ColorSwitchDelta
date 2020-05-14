@@ -13,7 +13,7 @@ let x1;
 let y1;
 let x2;
 let y2;
-let normVector;
+let unitVector;
 let dotProd;
 let dashX;
 let dashY;
@@ -191,6 +191,7 @@ class Obstacle {
 
             ctx.beginPath();
             ctx.strokeStyle = color[i];
+            ctx.lineCap="butt";
             this.parts.push(new Part(this.startAngle + df, this.endAngle + df, color[i]));
             ctx.arc(this.x, this.y, this.radius, df + this.startAngle, df + this.endAngle, this.truth);
             ctx.lineWidth = canvas.height / 40;
@@ -339,7 +340,7 @@ class Sprite{
         ctx.drawImage(this.image, column * this.frameWidth, row * this.frameHeight, this.frameWidth, this.frameHeight, canvas.width/2-(canvas.height*0.02),this.y-(canvas.height*0.02) , canvas.height*0.045,  canvas.height*0.045);
     }
     update(i){
-        this.curtFrame++;
+        this.currF++;
         //reset and start from the first sprite
         if (this.currF > this.maxF){
             this.currF = 0;
