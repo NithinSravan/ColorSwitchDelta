@@ -9,30 +9,90 @@ body{
     padding: 0;
     background-color: #fff;
 }
-#canvas{
+#canvas0{
     display: block;
     margin:0 auto;
     position: absolute;
     top:0;
     left:0;
-    width: 100vw;
+    width: 50vw;
     height: 100vh;
     background-color:  rgb(51, 50, 65);
 } 
-#overlay{
+#canvas1{
+    display: block;
+    margin:0 auto;
+    position: absolute;
+    top:0;
+    right:0;
+    width: 50vw;
+    height: 100vh;
+    background-color:  rgb(51, 50, 65);
+} 
+#overlay0{
     position: absolute;
     display: none;
     background-color: rgba(0,0,0,0.4);
-    width: 100vw;
+    width: 50vw;
     height: 100vh;
     z-index: 2;
 }
-#show{
+#show0{
     position: absolute;
     display: none;
     color: white;
-    width: 100%;
-    left:50%;
+    width: 50%;
+    top:25%;
+    left:25vw;
+    padding: 20px 0;
+    font-size: 2em;
+    transform: translateX(-50%);
+    text-align: center;
+    background-color:rgb(238, 165, 56,0.8);
+    z-index: 3;
+}
+#pause0{
+    position: absolute;
+    height: 20vh;
+    width: 10vh;
+    left: 40%;
+    top:4vh;
+    z-index: 1;
+}
+#resume0{
+    position: absolute;
+    height: 15vh;
+    width: 15vh;
+    left:25vw;
+    top:30%;
+    transform: translateX(-50%);
+    z-index: 3;
+}
+#restart0{
+    position: absolute;
+    height: 15vh;
+    width: 15vh;
+    left:25vw;
+    top:52%;
+    transform: translateX(-50%);
+    z-index: 3;
+}
+#overlay1{
+    position: absolute;
+    display: none;
+    background-color: rgba(0,0,0,0.4);
+    top:0;
+    right:0;
+    width: 50vw;
+    height: 100vh;
+    z-index: 2;
+}
+#show1{
+    position: absolute;
+    display: none;
+    color: white;
+    width: 50%;
+    left:75vw;
     top:25%;
     padding: 20px 0;
     font-size: 2em;
@@ -41,37 +101,29 @@ body{
     background-color:rgb(238, 165, 56,0.8);
     z-index: 3;
 }
-#pause{
+#pause1{
     position: absolute;
     height: 20vh;
     width: 10vh;
-    right:10vh;
+    left:90%;
     top:4vh;
     z-index: 1;
 }
-#resume{
+#resume1{
     position: absolute;
     height: 15vh;
     width: 15vh;
-    left:50%;
+    left:75vw;
     top:30%;
     transform: translateX(-50%);
     z-index: 3;
 }
-#restart{
+#restart1{
     position: absolute;
     height: 15vh;
     width: 15vh;
-    left:50%;
+    left:75vw;
     top:52%;
     transform: translateX(-50%);
     z-index: 3;
-}
-@media screen and (max-width:460px){
-    #pause{
-        height: 10vw;
-        width: 10vw;
-        right:5vh;
-        top:5vh;
-    }
 }
